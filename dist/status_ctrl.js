@@ -218,6 +218,8 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 						this.addEditorTab('Options', 'public/plugins/vonage-status-panel/editor.html', 2);
 						// Load in the supported units-of-measure formats so they can be displayed in the editor
 						this.unitFormats = kbn.getUnitFormats();
+
+						this.postRefresh();
 					}
 				}, {
 					key: "setUnitFormat",
@@ -638,17 +640,7 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 					value: function parseUri() {
 						if (this.panel.links && this.panel.links.length > 0) {
 							var link = this.panel.links[0];
-
-							if (link.type == "absolute") {
-								this.uri = link.url;
-							} else {
-								this.uri = 'dashboard/' + link.dashUri;
-							}
-
-							if (link.params) {
-								this.uri += "?" + link.params;
-							}
-
+							this.uri = link.url;
 							this.targetBlank = link.targetBlank;
 						} else {
 							this.uri = undefined;
@@ -699,7 +691,7 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 				}, {
 					key: "link",
 					value: function link(scope, elem, attrs, ctrl) {
-						this.$panelContainer = elem.find('.panel-container');
+						this.$panelContainer = elem;
 						this.$panelContainer.addClass("st-card");
 						this.$panelContoller = ctrl;
 					}

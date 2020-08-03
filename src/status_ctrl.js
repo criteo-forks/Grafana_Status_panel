@@ -144,6 +144,8 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 		this.addEditorTab('Options', 'public/plugins/vonage-status-panel/editor.html', 2);
 		// Load in the supported units-of-measure formats so they can be displayed in the editor
 		this.unitFormats = kbn.getUnitFormats();
+
+		this.postRefresh();
 	}
 
 	setUnitFormat(measurement, subItem) {
@@ -624,7 +626,7 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 	}
 
 	link(scope, elem, attrs, ctrl) {
-		this.$panelContainer = elem.find('.panel-container');
+		this.$panelContainer = elem;
 		this.$panelContainer.addClass("st-card");
 		this.$panelContoller = ctrl;
 	}
